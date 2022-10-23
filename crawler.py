@@ -31,12 +31,11 @@ def crawl(seed):
             mystring += contents[i]
 
         #Get all of the outgoing links in the page we are in
-        tags = mystring.split('"')
-        for i in range(len(tags)):
-            if i % 2 == 1:
-                full = full_url(tags[i], seed)
-                outgoing_links.append(full)
-                outgoing_links_dict[links_to_visit[0]] = outgoing_links
+        tags = mystring.split('href="')
+        for i in range(1, len(tags)):
+            full = full_url(tags[i].split('"')[0], seed)
+            outgoing_links.append(full)
+            outgoing_links_dict[links_to_visit[0]] = outgoing_links
 
         #tf and idf dictionary
         count_total = 0
